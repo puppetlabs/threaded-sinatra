@@ -11,4 +11,6 @@ WORKDIR ${APP_ROOT}
 
 ADD ./ ${APP_ROOT}/
 
-RUN gem install bundler && bundle install
+RUN jruby -S gem install puma sinatra prometheus-client
+
+CMD [ "jruby", "racktest.rb" ]
