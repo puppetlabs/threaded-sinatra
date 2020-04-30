@@ -9,16 +9,17 @@ require 'sinatra/base'
 require 'prometheus/middleware/collector'
 require 'prometheus/middleware/exporter'
 
+# Prometheus Endpoints
+use Prometheus::Middleware::Collector
+
 module Vmpooler
   class PrometheusAPI < Sinatra::Base
 
-    # Prometheus Endpoints
     use Rack::Deflater
     use Prometheus::Middleware::Exporter
-    use Prometheus::Middleware::Collector
 
     def execute!
-        puts "DBG: Execute! line was reached by #{caller.join("\n")}"
+        Prometheus::Middleware::Collector.new(self.settings)
         self.settings.run!
     end
   

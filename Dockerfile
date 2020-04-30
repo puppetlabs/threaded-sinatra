@@ -9,6 +9,6 @@ ENV APP_ROOT /app
 RUN mkdir -p ${APP_ROOT}
 WORKDIR ${APP_ROOT}
 
-ADD ./ ${APP_ROOT}/
+ADD ./Gemfile ${APP_ROOT}/
 
 RUN gem install bundler && bundle install
